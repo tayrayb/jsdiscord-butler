@@ -1,2 +1,2 @@
 # pydiscord-butler
-Discord Bot written in Python
+Discord Bot written in Typescript
