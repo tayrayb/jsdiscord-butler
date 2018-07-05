@@ -1,7 +1,10 @@
+//Imports
 const conf = require('./conf.js');
 const Giphy = require('giphy-api')(conf.giphyAPI);
-var prefix = conf.prefix;
 const Discord = require('discord.js');
+//Prefix
+var prefix = conf.prefix;
+//Discord Constants
 const bot = new Discord.Client();
 const token = conf.discordAPI;
 //Command Ready
@@ -23,6 +26,10 @@ bot.on('message', message => {
         message.channel.send('pong')
         return;
     }
+    //Avatar commands
+    if (cmd === `${prefix}avatar`) {
+            message.channel.send(message.member.user.avatarURL)
+    }
     //Gif Commands
     if (cmd === `${prefix}gif`) {
         if (args[0] === 'random') {
@@ -34,16 +41,17 @@ bot.on('message', message => {
                 console.log(res.data.url);
             })
         } else if (args[0] === 'search'){
-            Giphy.search({
-                q: args[1],
-                fmt: 'json',
-                limit: 1
+            Giphy.random({
+                tag: args[1],
+                rating: 'g',
+                fmt: 'json'
             }, function (err, res) {
-                message.channel.send(res.data[0].url);
-                console.log(res.data[0].url);
+                message.channel.send(res.data.url);
+                console.log(res.data.url);
                 return;
             });
         }
     }
 })
+//Bot Login
 bot.login(token)
