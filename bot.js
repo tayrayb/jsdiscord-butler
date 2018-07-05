@@ -29,6 +29,7 @@ bot.on('message', message => {
     //Avatar commands
     if (cmd === `${prefix}avatar`) {
             message.channel.send(message.member.user.avatarURL)
+            return;
     }
     //Gif Commands
     if (cmd === `${prefix}gif`) {
@@ -39,6 +40,7 @@ bot.on('message', message => {
             }, function (err, res) {
                 message.channel.send(res.data.url);
                 console.log(res.data.url);
+                return;
             })
         } else if (args[0] === 'search'){
             Giphy.random({
