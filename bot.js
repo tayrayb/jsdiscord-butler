@@ -4,9 +4,11 @@ const Giphy = require('giphy-api')(conf.giphyAPI);
 const Discord = require('discord.js');
 //Prefix
 var prefix = conf.prefix;
+const talkedRecently = new Set();
 //Discord Constants
 const bot = new Discord.Client();
 const token = conf.discordAPI;
+
 //Command Ready
 bot.on('ready', () => {
     console.log(`${bot.user.username} is online!`);
@@ -14,6 +16,14 @@ bot.on('ready', () => {
 });
 //Start of Bot
 bot.on('message', message => {
+    //Timeout check
+    if (talkedRecently.has(message.author.id))
+    return;
+    //Add user to timeout
+    talkedRecently.add(message.author.id);
+    setTimeout(() => {
+        talkedRecently.delete(message.author.id);
+    }, 2500);
     //Prevent bot from talking to itself
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
@@ -21,6 +31,7 @@ bot.on('message', message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
+    let dUser = message.mentions.users.first();
     //Ping pong!
     if (cmd === `${prefix}ping`) {
         message.channel.send('pong')
@@ -28,8 +39,12 @@ bot.on('message', message => {
     }
     //Avatar commands
     if (cmd === `${prefix}avatar`) {
-            message.channel.send(message.member.user.avatarURL)
-            return;
+        if (args[0]) {
+            message.channel.send(dUser.avatarURL)
+        }
+        else {
+            message.channel.send(message.author.avatarURL)
+        }
     }
     //Gif Commands
     if (cmd === `${prefix}gif`) {
@@ -42,7 +57,7 @@ bot.on('message', message => {
                 console.log(res.data.url);
                 return;
             })
-        } else if (args[0] === 'search'){
+        } else if (args[0] === 'search') {
             Giphy.random({
                 tag: args[1],
                 rating: 'g',
