@@ -1,4 +1,4 @@
-const Giphy = require('giphy')('xlBIG4vhISXCkzpjWHhmtkH2XtbJGF1S');
+const Giphy = require('giphy-api')('xlBIG4vhISXCkzpjWHhmtkH2XtbJGF1S');
 var prefix = '!'
 const Discord = require('discord.js');
 const bot = new Discord.Client();
@@ -9,28 +9,41 @@ bot.on('ready', () => {
 })
 //Ping Pong
 bot.on('message', message => {
-    if (message.content === prefix + 'ping') {
-     message.channel.send('pong');
+
+    if (message.content === prefix + 'ping' && message.author.id != bot.user.id) {
+     message.channel.send('!ping');
     }
 });
-//Gif Trending
+//Random Gif
 bot.on('message', message => {
-
-    function handleTrending(err, trend, res) {
-     console.log(trend.url);
-     message.channel.send(trend.url);
+    if (message.content === prefix + 'gifrandom') {
+     Giphy.random({
+         rating: 'g'
+        },function (err, res) {
+         message.channel.send(res.data.url)
+        })
+        /*Giphy.trending({
+            limit: 1
+        },function(err, res){
+            res.data.forEach(ele => {
+                message.channel.send(ele.url)
+            })
+        })*/
     }
-
-    if (message.content === prefix + 'giftrending') {
-     Giphy.trending(handleTrending);
-    }
-    
 });
 //What is my avatar?
 bot.on('message', message => {
     if (message.content === prefix + 'avatar') {
         message.reply(message.author.avatarURL)
+        message.channel.send('You are awesome')
     }
 });
+//Avatar of another User
+bot.on('message', message => {
+    if (message.content === new RegExp('\\' + prefix + ' * \\' )) {
+        message.channel.send(message.mentions[0].user.avatarURL)
+    }
+})
 
-bot.login(token);``
+//Bot Login
+bot.login(token);
