@@ -1,2 +1,2 @@
 # jsdiscord-butler
-Discord Bot written in Typescript
+Discord Bot written in Javascript

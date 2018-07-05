@@ -1,0 +1,23 @@
+{
+  "name": "jsdiscord-butler",
+  "version": "1.0.0",
+  "description": "Discord Bot written in Javascript",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tayrayb/jsdiscord-butler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tayrayb/jsdiscord-butler/issues"
+  },
+  "homepage": "https://github.com/tayrayb/jsdiscord-butler#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "giphy": "0.0.4"
+  }
+}
