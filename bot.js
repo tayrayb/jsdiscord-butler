@@ -1,49 +1,25 @@
-const Giphy = require('giphy-api')('xlBIG4vhISXCkzpjWHhmtkH2XtbJGF1S');
+const conf = require('./conf.js');
+const Giphy = require('giphy-api')(conf.giphyAPI);
 var prefix = '!'
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const token = 'NDUwMTU2NjgxNzc1NTQ2MzY5.Dh786Q.qLfr6jaHxiikwd3_HOl6O4paSUI'
+const token = conf.discordAPI;
 //Command Ready
 bot.on('ready', () => {
-    console.log('I am ready!');
-})
-//Ping Pong
+    console.log(`${bot.user.username} is online!`);
+    bot.user.setActivity("Being Built");
+});
+//Start of Bot
 bot.on('message', message => {
+    //Prevent bot from talking to itself
+    if (message.author.bot) return;
+    if (message.channel.type === "dm") return;
+    //Set cmd and arrays
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+    let args = messageArray.slice(1);
 
-    if (message.content === prefix + 'ping' && message.author.id != bot.user.id) {
-     message.channel.send('!ping');
-    }
-});
-//Random Gif
-bot.on('message', message => {
-    if (message.content === prefix + 'gifrandom') {
-     Giphy.random({
-         rating: 'g'
-        },function (err, res) {
-         message.channel.send(res.data.url)
-        })
-        /*Giphy.trending({
-            limit: 1
-        },function(err, res){
-            res.data.forEach(ele => {
-                message.channel.send(ele.url)
-            })
-        })*/
-    }
-});
-//What is my avatar?
-bot.on('message', message => {
-    if (message.content === prefix + 'avatar') {
-        message.reply(message.author.avatarURL)
-        message.channel.send('You are awesome')
-    }
-});
-//Avatar of another User
-bot.on('message', message => {
-    if (message.content === new RegExp('\\' + prefix + ' * \\' )) {
-        message.channel.send(message.mentions[0].user.avatarURL)
+    
     }
 })
-
-//Bot Login
-bot.login(token);
+bot.login(token)
