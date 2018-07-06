@@ -18,6 +18,10 @@
   "homepage": "https://github.com/tayrayb/jsdiscord-butler#readme",
   "dependencies": {
     "discord.js": "^11.3.2",
-    "giphy-api": "^1.2.7"
+    "ffmpeg-binaries": "^3.2.2-3",
+    "fs": "0.0.1-security",
+    "giphy-api": "^1.2.7",
+    "tar": "^4.4.4",
+    "ytdl-core": "^0.20.4"
   }
 }
