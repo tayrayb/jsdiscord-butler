@@ -9,6 +9,8 @@ const talkedRecently = new Set()
 // Discord Constants
 const bot = new Discord.Client()
 const token = conf.discordAPI
+const heroku = process.env.discordapi
+
 // Command Ready
 bot.on('ready', () => {
   console.log(`${bot.user.username} is online!`)
@@ -94,3 +96,4 @@ bot.on('message', message => {
 })
 // Bot Login
 bot.login(token)
+bot.login(heroku)
