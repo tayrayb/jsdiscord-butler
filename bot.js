@@ -9,7 +9,6 @@ const talkedRecently = new Set()
 // Discord Constants
 const bot = new Discord.Client()
 const token = conf.discordAPI
-const heroku = process.env.discordapi
 
 // Command Ready
 bot.on('ready', () => {
@@ -78,22 +77,23 @@ bot.on('message', message => {
       Giphy.random({
         rating: 'g',
         fmt: 'json'
-      }, function (res) {
+      }, function (err, res) {
         message.channel.send(res.data.url)
         console.log(res.data.url)
+        if (err) console.log(err)
       })
     } else if (args[0] === 'search') {
       Giphy.random({
         tag: args[1],
         rating: 'g',
         fmt: 'json'
-      }, function (res) {
+      }, function (err, res) {
         message.channel.send(res.data.url)
         console.log(res.data.url)
+        if (err) console.log(err)
       })
     }
   }
 })
 // Bot Login
 bot.login(token)
-bot.login(heroku)
