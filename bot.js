@@ -102,7 +102,7 @@ bot.login(token)
 
 const http = require('html');
 
-//Heroku Shutdonw Workaround
+//Heroku Shutdown Workaround
 html.listen(5000, function () {
 });
 
