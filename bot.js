@@ -10,9 +10,11 @@ const bot = new Discord.Client()
 const token = process.env.DISCORD_KEY; //Set the Token to what is in the config file, if not set try the env varible 'APIKEY'.
 if (!token) {
     console.log('Please Provide a Discord API Token "DSKEY" in enviroment varibles ')
+    return;
 }
 if (!prefix) {
     console.log('Please Provide a prefic "PREFIX" in enviroment varibles ')
+    return;
 }
 // Command Ready
 bot.on('ready', () => {
