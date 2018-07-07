@@ -100,6 +100,17 @@ bot.on('message', message => {
 // Bot Login
 bot.login(token)
 
+const http = require('html');
+
+//Heroku Shutdonw Workaround
+html.listen(5000, function () {
+});
+
+
+/**
+ * Checks if the proccess has the required enviroment vars set
+ * @returns {boolean}
+ * */
 function haveVars() {
 
     var valid = true;
