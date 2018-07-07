@@ -1,16 +1,19 @@
 // Imports
-const conf = require('./conf.js')
-const Giphy = require('giphy-api')(conf.giphyAPI)
+const Giphy = require('giphy-api')(process.env.GIPHY_KEY)
 const Discord = require('discord.js')
 const ytdl = require('ytdl-core')
 // Prefix
-var prefix = conf.prefix
+var prefix = process.env.PREFIX|| ';;' // Look in config file for user specified prefix... if none set to ';;'
 const talkedRecently = new Set()
 // Discord Constants
 const bot = new Discord.Client()
-const token = conf.discordAPI
-const heroku = process.env.discordapi
-
+const token = process.env.DISCORD_KEY; //Set the Token to what is in the config file, if not set try the env varible 'APIKEY'.
+if (!token) {
+    console.log('Please Provide a Discord API Token "DSKEY" in enviroment varibles ')
+}
+if (!prefix) {
+    console.log('Please Provide a prefic "PREFIX" in enviroment varibles ')
+}
 // Command Ready
 bot.on('ready', () => {
   console.log(`${bot.user.username} is online!`)
@@ -96,4 +99,3 @@ bot.on('message', message => {
 })
 // Bot Login
 bot.login(token)
-bot.login(heroku)
