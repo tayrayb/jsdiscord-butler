@@ -100,7 +100,7 @@ bot.on('message', message => {
 // Bot Login
 bot.login(token)
 
-const http = require('html');
+const http = require('http');
 
 //Heroku Shutdown Workaround
 html.listen(5000, function () {
