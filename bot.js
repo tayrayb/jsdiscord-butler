@@ -103,8 +103,8 @@ bot.login(token)
 const http = require('http');
 
 //Heroku Shutdown Workaround
-http.listen(5000, function () {
-});
+const server = http.createServer();
+server.listen(process.env.PORT || 5000)
 
 
 /**
