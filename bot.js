@@ -97,3 +97,13 @@ bot.on('message', message => {
 });
 // Bot Login
 bot.login(token);
+// Webpage Monitor
+const express = require('express');
+const expressmonitor = require('express-status-monitor')({ path: '' });
+const app = express();
+// Heroku Shutdown Avoidance
+app.use(expressmonitor.middleware);
+app.get('/', expressmonitor.pageRoute);
+app.listen(8080, () => {
+  console.log('Now listening!');
+});
