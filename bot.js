@@ -37,8 +37,36 @@ bot.on('message', message => {
     message.channel.send('pong');
     return;
   }
+  // Youtbe Player 2.0
+  if (!args[0]) {
+    console.log('My master hasnt given me the args!');
+    message.channel.send('My master hasnt given me the args!');
+    return;
+  }
+  if (args[0].length > 0) {
+    console.log('length is true!');
+    if (ytdl.validateURL(args[0])) {
+      console.log('YT link valid!');
+      if (message.member.voiceChannel) {
+        message.member.voiceChannel.join()
+          .then(conn => {
+            message.channel.send('Successfully joined voice channel!');
+            conn.playStream(ytdl(args[0]));
+          }).catch(console.log);
+      } else {
+        message.channel.send('You need to join a voice channel first!');
+      }
+    } else if (args[0] === 'stop') {
+      if (message.guild.voiceConnection) {
+        message.channel.send('Leaving Voice Channel');
+        message.member.voiceChannel.leave();
+      } else {
+        message.channel.send('I have already left!');
+      }
+    }
+  }
   // Youtube music
-  if (cmd === `${prefix}yt`) {
+  /*  if (cmd === `${prefix}yt`) {
     if (ytdl.validateURL(args[0])) {
       if (message.member.voiceChannel) {
         message.member.voiceChannel.join()
@@ -62,7 +90,7 @@ bot.on('message', message => {
         message.channel.send('I have already left');
       }
     }
-  }
+  } */
   // Avatar commands
   if (cmd === `${prefix}avatar`) {
     if (args[0]) {
