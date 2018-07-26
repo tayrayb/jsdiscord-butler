@@ -2,7 +2,7 @@
 const Giphy = require('giphy-api')(process.env.GIPHY_KEY);
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
-const os = require('os');
+const os = require('os-utils');
 // Prefix
 var prefix = process.env.PREFIX || ';;'; // Look in config file for user specified prefix... if none set to ';;'
 const talkedRecently = new Set();
@@ -112,7 +112,7 @@ setInterval(function () {
 }, 300000);
 // Show system info in console
 setInterval(function () {
-  console.log(os.cpus());
-  console.log(os.totalmem());
-  console.log(os.freemem());
+  os.cpuUsage(function (v) {
+    console.log('CPU Usage (%): ` + v');
+  });
 }, 5000);
