@@ -2,7 +2,6 @@
 const Giphy = require('giphy-api')(process.env.GIPHY_KEY);
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
-const os = require('os-utils');
 // Prefix
 var prefix = process.env.PREFIX || ';;'; // Look in config file for user specified prefix... if none set to ';;'
 const talkedRecently = new Set();
@@ -97,11 +96,14 @@ bot.on('message', message => {
 bot.login(token);
 // Express Imports
 const express = require('express');
+const expressmonitor = require('express-status-monitor')({ path: '' });
 const app = express();
 // Heroku Shutdown Avoidance
 app.get('/', (req, res) => {
   return res.send('Hug Bot');
 });
+app.use(expressmonitor.middleware);
+app.get('/status', expressmonitor.pageRoute);
 app.listen(process.env.PORT, () => {
   console.log('Now listening!');
 });
@@ -110,18 +112,4 @@ setInterval(function () {
   app.get('http://jsdiscord-butler.herokuapp.com');
   console.log('Pinged website!');
 }, 300000);
-// Show system info in console
-setInterval(function () {
-  os.cpuUsage(function (v) {
-    console.log('CPU Usage % : ' + v);
-    console.log('------------');
-  });
-}, 5000);
-setInterval(function () {
-  console.log('Total Memory: ' + os.totalmem() + 'MB');
-  console.log('------------');
-  console.log('Free Memory: ' + os.freemem() + 'MB');
-  console.log('------------');
-  console.log('Free Memory (%):' + os.freememPercentage());
-  console.log('------------');
-}, 5000);
+// Show system info in web
