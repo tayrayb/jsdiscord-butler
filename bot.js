@@ -112,5 +112,12 @@ setInterval(function () {
 }, 300000);
 // Show system info in console
 setInterval(function () {
-  console.log(os.cpuUsage() + '%');
+  os.cpuUsage(function (v) {
+    console.log('CPU Usage % : ' + v);
+  });
+}, 5000);
+setInterval(function () {
+  console.log('Total Memory: ' + os.totalmem() + 'MB');
+  console.log('Free Memory: ' + os.freemem() + 'MB');
+  console.log('Free Memory (%):' + os.freememPercentage());
 }, 5000);
