@@ -2,8 +2,7 @@
   "name": "jsdiscord-butler",
   "version": "1.0.0",
   "engines": {
-    "node": "10.7.0",
-    "npm": "6.2.X"
+    "node": "10.7.0"
   },
   "description": "Discord Bot written in Javascript",
   "main": "bot.js",
