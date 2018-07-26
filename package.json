@@ -23,6 +23,7 @@
     "ffmpeg-binaries": "^3.2.2-3",
     "giphy-api": "^1.2.7",
     "opusscript": "0.0.6",
+    "systeminformation": "^3.42.4",
     "tar": "^4.4.4",
     "ytdl-core": "^0.20.4"
   }
