@@ -37,28 +37,30 @@ bot.on('message', message => {
     return;
   }
   // Youtube music
-  if (cmd === `${prefix}yt`) {
+  if (!args[0]) {
+    console.log('My master hasnt given me the args!');
+    message.channel.send('My master hasnt given me the args!');
+    return;
+  }
+  if (args[0].length > 0) {
+    console.log('length is true!');
     if (ytdl.validateURL(args[0])) {
+      console.log('YT link valid!');
       if (message.member.voiceChannel) {
         message.member.voiceChannel.join()
-          .then(connection => {
-            message.channel.send('Successfully joined voice channel and will now play');
-            connection.playStream(ytdl(args[0]));
+          .then(conn => {
+            message.channel.send('Successfully joined voice channel!');
+            conn.playStream(ytdl(args[0]));
           }).catch(console.log);
       } else {
-        message.channel.send('You need to join an channel first!');
+        message.channel.send('You need to join a voice channel first!');
       }
-    }
-    if (!args[0]) {
-      message.channel.send('Please provide a Youtube link');
-      return;
-    }
-    if (args[0] === 'stop') {
+    } else if (args[0] === 'stop') {
       if (message.guild.voiceConnection) {
+        message.channel.send('Leaving Voice Channel');
         message.member.voiceChannel.leave();
-        message.channel.send('Leaving voice channel');
       } else {
-        message.channel.send('I have already left');
+        message.channel.send('I have already left!');
       }
     }
   }
