@@ -99,11 +99,8 @@ const express = require('express');
 const expressmonitor = require('express-status-monitor')({ path: '' });
 const app = express();
 // Heroku Shutdown Avoidance
-app.get('/', (req, res) => {
-  return res.send('Hug Bot');
-});
 app.use(expressmonitor.middleware);
-app.get('/status', expressmonitor.pageRoute);
+app.get('/', expressmonitor.pageRoute);
 app.listen(process.env.PORT, () => {
   console.log('Now listening!');
 });
