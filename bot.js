@@ -115,5 +115,7 @@ setInterval(function () {
   os.cpuUsage(function (v) {
     console.log('CPU Usage (%): ' + v);
   });
-  console.log(os.freemem(), os.freememPercentage());
+  os.freemem(function (v) {
+    console.log('Free Memory: ' + v);
+  });
 }, 5000);
