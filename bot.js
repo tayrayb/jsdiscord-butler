@@ -2,7 +2,7 @@
 const Giphy = require('giphy-api')(process.env.GIPHY_KEY);
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
-const si = require('systeminformation');
+const os = require('os');
 // Prefix
 var prefix = process.env.PREFIX || ';;'; // Look in config file for user specified prefix... if none set to ';;'
 const talkedRecently = new Set();
@@ -111,4 +111,8 @@ setInterval(function () {
   console.log('Pinged website!');
 }, 300000);
 // Show system info in console
-si.cpu().then(data => console.log(data)).catch(error => console.error(error));
+setInterval(function () {
+  console.log(os.cpus());
+  console.log(os.totalmem());
+  console.log(os.freemem());
+}, 5000);
