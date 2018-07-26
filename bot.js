@@ -114,10 +114,14 @@ setInterval(function () {
 setInterval(function () {
   os.cpuUsage(function (v) {
     console.log('CPU Usage % : ' + v);
+    console.log('------------');
   });
 }, 5000);
 setInterval(function () {
   console.log('Total Memory: ' + os.totalmem() + 'MB');
+  console.log('------------');
   console.log('Free Memory: ' + os.freemem() + 'MB');
+  console.log('------------');
   console.log('Free Memory (%):' + os.freememPercentage());
+  console.log('------------');
 }, 5000);
