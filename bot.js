@@ -113,6 +113,6 @@ setInterval(function () {
 // Show system info in console
 setInterval(function () {
   os.cpuUsage(function (v) {
-    console.log('CPU Usage (%): ` + v');
+    console.log('CPU Usage (%): ' + v);
   });
 }, 5000);
