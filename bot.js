@@ -76,18 +76,20 @@ bot.on('message', message => {
       Giphy.random({
         rating: 'g',
         fmt: 'json'
-      }, function (res) {
+      }, function (err, res) {
         message.channel.send(res.data.url);
         console.log(res.data.url);
+        if (err) console.log(err);
       });
     } else if (args[0] === 'search') {
       Giphy.random({
         tag: args[1],
         rating: 'g',
         fmt: 'json'
-      }, function (res) {
+      }, function (err, res) {
         message.channel.send(res.data.url);
         console.log(res.data.url);
+        if (err) console.log(err);
       });
     }
   }
