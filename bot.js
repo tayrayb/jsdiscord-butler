@@ -2,8 +2,6 @@
 const Giphy = require('giphy-api')(process.env.GIPHY_KEY);
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
-const express = require('express');
-const app = express();
 // Prefix
 var prefix = process.env.PREFIX || ';;'; // Look in config file for user specified prefix... if none set to ';;'
 const talkedRecently = new Set();
@@ -96,6 +94,9 @@ bot.on('message', message => {
 });
 // Bot Login
 bot.login(token);
+// Express Imports
+const express = require('express');
+const app = express();
 // Heroku Shutdown Avoidance
 app.get('/', (req, res) => {
   return res.send('Hug Bot');
@@ -105,6 +106,6 @@ app.listen(process.env.PORT, () => {
 });
 // Bot to ping itself to preven sleeping
 setInterval(function () {
-  app.get('http://hug-bot.herokuapp.com');
+  app.get('http://jsdiscord-butler.herokuapp.com');
   console.log('Pinged website!');
 }, 300000);
