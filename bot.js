@@ -112,10 +112,5 @@ setInterval(function () {
 }, 300000);
 // Show system info in console
 setInterval(function () {
-  os.cpuUsage(function (v) {
-    console.log('CPU Usage (%): ' + v);
-  });
-  os.freemem(function (v) {
-    console.log('Free Memory: ' + v);
-  });
+  console.log(os.cpuUsage() + '%');
 }, 5000);
