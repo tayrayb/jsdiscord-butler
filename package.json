@@ -20,7 +20,7 @@
     "discord.js": "^11.3.2",
     "express": "^4.16.3",
     "express-status-monitor": "^1.1.5",
-    "ffmpeg-binaries": "^4.0.0",
+    "ffmpeg-binaries": "^3.2.2-3",
     "giphy-api": "^1.2.7",
     "node-opus": "^0.3.0",
     "tar": "^4.4.4",
