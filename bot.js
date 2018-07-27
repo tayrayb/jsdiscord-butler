@@ -3,13 +3,6 @@ const conf = require('./conf.js');
 const Giphy = require('giphy-api')(conf.giphyAPI);
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
-const os = require('os');
-// Set FFMPEG Path
-if (os.platform() === 'win32') {
-  var ffmpeg = './node_modules/ffmpeg-binaries/bin/ffmpeg.exe';
-} else {
-  var ffmpeg = './node_modules/ffmpeg-binaries/bin/ffmpeg';
-}
 // Prefix
 var prefix = conf.prefix;
 const talkedRecently = new Set();
