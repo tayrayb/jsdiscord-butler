@@ -11,12 +11,18 @@ const bot = new Discord.Client();
 const token = conf.discordAPI;
 
 // Command Ready
-bot.on('ready', async () => {
-  console.log(`${bot.user.username} is online on ${bot.guilds.size}!`);
+bot.on('ready', () => {
+  console.log(`${bot.user.username} is online on ${bot.guilds.size} server/s!`);
   bot.user.setActivity('Being Built');
 });
 // Start of Bot
-bot.on('message', async message => {
+bot.on('message', message => {
+  // Prevent Bot spam from one user
+  if (talkedRecently.has(message.author.id)) { return; }
+  talkedRecently.add(message.author.id);
+  setTimeout(() => {
+    talkedRecently.delete(message.author.id);
+  }, 2500);
   // Arrays!
   let messageArray = message.content.split(' ');
   let cmd = messageArray[0];
@@ -25,8 +31,16 @@ bot.on('message', async message => {
   if (message.author.bot) return;
   // NO DM'S! (For now)
   if (message.channel.type === 'dm') {
-    message.channel.send(`${message.author.username} let me be please!`);
-    return;
+    if (cmd === `${prefix}help`) {
+      let sicon = bot.user.avatarURL;
+      let serverembed = new Discord.RichEmbed()
+        .setDescription('Bot Help')
+        .setThumbnail(sicon)
+        .addField('!serverinfo:', 'Display server info')
+        .addField('!yt:', 'Play Youtube Music in the voice channel. eg. !yt youtubelink')
+        .addField('!gif:', 'Search for a gif. No arguments will search for a random gif. (Only one tag works for now)');
+      return message.channel.send(serverembed);
+    }
   }
   // Guild Info
   if (message.guild.available) {
@@ -42,7 +56,37 @@ bot.on('message', async message => {
       return message.channel.send(serverembed);
     }
   }
-  // User Query
+  // Youtube
+  if (message.guild.available) {
+    if (cmd === `${prefix}yt`) {
+      if (!args[0]) {
+        message.channel.send('Please give me a Youtube link!');
+        return;
+      }
+      if (args[0].length > 0) {
+        if (ytdl.validateURL(args[0])) {
+          message.channel.send('Valid Youtube Link!');
+          if (message.member.voiceChannel) {
+            message.channel.send('Joining Voice!');
+            message.member.voiceChannel.join()
+              .then(conn => {
+                message.channel.send('Successfully Joined Voice Channel');
+                conn.playStream(ytdl(args[0]));
+              }).catch(console.log);
+          } else {
+            message.channel.send('Failed to join voice channel, please join a voice channel first!');
+          }
+        } else if (args[0] === `stop`) {
+          if (message.guild.voiceConnection) {
+            message.channel.send('Leaving Voice Channel');
+            message.member.voiceChannel.leave();
+          } else {
+            message.channel.send('I have already left the voice channel');
+          }
+        }
+      }
+    }
+  }
 });
 // Bot Login
 bot.login(token);
